@@ -1,0 +1,106 @@
+body {
+    margin: 0;
+    padding: 1rem;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #d0bfff, #ffb6c1);
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    color: #6a0dad;
+    margin-bottom: 1rem;
+    animation: zoomIn 1s ease;
+  }
+  
+  .timer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .timer div {
+    background: linear-gradient(135deg, #ff69b4, #ba55d3);
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-width: 80px;
+  }
+  
+  #birthdayMessage {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 2rem;
+    color: #ff1493;
+    animation: fadeIn 1s ease-in-out;
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  #birthdayMessage strong {
+    text-shadow: 0 0 10px pink, 0 0 20px hotpink;
+    animation: bounce 2s infinite ease-in-out;
+  }
+  
+  .loveMessage {
+    font-size: 1.1rem;
+    color: #800080;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+  
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  
+  @media (min-width: 600px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+  
+    .timer {
+      font-size: 2rem;
+      gap: 20px;
+    }
+  
+    .timer div {
+      min-width: 100px;
+    }
+  
+    #birthdayMessage {
+      font-size: 2.5rem;
+    }
+  
+    .loveMessage {
+      font-size: 1.3rem;
+    }
+  }
+  
