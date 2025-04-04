@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Countdown</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom, #d0bfff, #ffb6c1);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: #6a0dad;
+      margin-bottom: 20px;
+      animation: zoomIn 1s ease;
+    }
+
+    .timer {
+      display: flex;
+      gap: 20px;
+      font-size: 2em;
+      color: white;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    }
+
+    .timer div {
+      background: linear-gradient(135deg, #ff69b4, #ba55d3);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    #birthdayMessage {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      font-size: 2.5em;
+      color: #ff1493;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    #birthdayMessage strong {
+      text-shadow: 0 0 10px pink, 0 0 20px hotpink;
+      animation: bounce 2s infinite ease-in-out;
+    }
+
+    .photo {
+      width: 250px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: none;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <h1>Birthday Countdown</h1>
+  <div class="timer" id="countdown">
+    <div><span id="days"></span> Days</div>
+    <div><span id="hours"></span> Hours</div>
+    <div><span id="minutes"></span> Minutes</div>
+    <div><span id="seconds"></span> Seconds</div>
+  </div>
+
+  <!-- Birthday Message (Hidden Initially) -->
+  <div id="birthdayMessage">
+    <strong>🎉 Happy Birthday Siddhi! 🎂</strong>
+    <img id="birthdayPhoto" class="photo" src="birthday-image.jpg" alt="Birthday Celebration" />
+  </div>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <script>
+    const countdown = document.getElementById("countdown");
+    const birthdayMessage = document.getElementById("birthdayMessage");
+    const birthdayPhoto = document.getElementById("birthdayPhoto");
+
+    // Set countdown target date to April 6, 2025, at 00:00:00
+    const birthdayDate = new Date("April 6, 2025 00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = birthdayDate - now;
+
+      if (distance <= 0) {
+        countdown.style.display = "none"; // Hide countdown
+        birthdayMessage.style.display = "flex"; // Show birthday message
+        birthdayPhoto.style.display = "block"; // Show birthday image
+        startConfetti(); // Start confetti animation
+        return;
+      }
+
+      document.getElementById("days").textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
+      document.getElementById("hours").textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      document.getElementById("minutes").textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      document.getElementById("seconds").textContent = Math.floor((distance % (1000 * 60)) / 1000);
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function startConfetti() {
+      const canvas = document.getElementById("confettiCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      function drawConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < 100; i++) {
+          ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 50%)`;
+          ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 10, 10);
+        }
+      }
+      setInterval(drawConfetti, 100);
+    }
+  </script>
+</body>
+</html>
